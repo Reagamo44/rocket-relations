@@ -1,0 +1,11 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rocket-relations"
+version = "0.1.0"
+description = "Basic ideal rocket relations"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["numpy"]
