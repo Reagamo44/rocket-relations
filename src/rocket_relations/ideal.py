@@ -251,5 +251,5 @@ def main():
 
         thrust_coefficient(gamma, A_ratio, pe_p0, pa_p0, array_choice)
 
-
-main()
+if __name__ == "__main__":
+    main()
