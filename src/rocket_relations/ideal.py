@@ -185,65 +185,68 @@ def safe_input(prompt, **kwargs):
         except TypeError as e:
             print(f"Error: {e}")
 
+def main():
+    """
+    Main function to run the ideal rocket relations from command line. Asks user for all inputs and runs other functions.
+    """
+    # User chooses which value to calculate, in future iterations, calculate both at once
+    calc_choice = input("Would you like to calculate thrust coefficient ('tc') or characteristic velocity (anything else)?: ").strip().lower()
 
-# User chooses which value to calculate, in future iterations, calculate both at once
-calc_choice = input("Would you like to calculate thrust coefficient ('tc') or characteristic velocity (anything else)?: ").strip().lower()
-
-# gamma defenition
-gamma = safe_input("Please enter list of specific heat ratios (comma separated): ",
+# gamma definition
+    gamma = safe_input("Please enter list of specific heat ratios (comma separated): ",
                     name="Specific heat ratio",
                     min_val=1.0,
                     max_val=1.8, min_inclusive=False)
         
 
-if calc_choice != 'tc': # Thrust coefficient
+    if calc_choice != 'tc': # Thrust coefficient
 
 # R definition
-    R = safe_input("Please enter list of specific gas constants (comma separated): ",
+        R = safe_input("Please enter list of specific gas constants (comma separated): ",
                     name="Specific gas constant",
                     min_val = 1)
 
 # T0 definition
-    T0 = safe_input("Please enter list of stagnation temperatures (comma separated): ",
+        T0 = safe_input("Please enter list of stagnation temperatures (comma separated): ",
                     name="Stagnation temperature",
                     min_val = 0,
                     min_inclusive = False)
 
 # Check if arrays are same size and ask user if they want to treat as paired inputs
-    if gamma.size == R.size == T0.size:
-        array_choice = input("Your arrays are the same size! Would like to treat them as paired inputs rather than calculate all variations? (y/n): ").strip().lower()
-        if array_choice not in ['y', 'n']:
-            array_choice = input("Invalid input. Please enter 'y' or 'n': ").strip().lower()
-    else:
-        array_choice = "n"
+        if gamma.size == R.size == T0.size:
+            array_choice = input("Your arrays are the same size! Would like to treat them as paired inputs rather than calculate all variations? (y/n): ").strip().lower()
+            if array_choice not in ['y', 'n']:
+                array_choice = input("Invalid input. Please enter 'y' or 'n': ").strip().lower()
+        else:
+            array_choice = "n"
 
-    characteristic_velocity(gamma, R, T0, array_choice)
+        characteristic_velocity(gamma, R, T0, array_choice)
 
-else: # Characteristic velocity
+    else: # Characteristic velocity
 
 # A_ratio definition
-    A_ratio = safe_input("Please enter list of nozzle area ratios (Ae/A*), comma separated: ",
-                    name="Nozzle area ratio",
-                    min_val = 0,
-                    min_inclusive = False)
+        A_ratio = safe_input("Please enter list of nozzle area ratios (Ae/A*), comma separated: ",
+                        name="Nozzle area ratio",
+                        min_val = 0,
+                        min_inclusive = False)
 
 # pe_p0 definition
-    pe_p0 = safe_input("Please enter list of nozzle exit pressure ratios (pe/p0), comma separated: ",
-                    name="Nozzle exit pressure ratio",
-                    min_val = 0,
-                    max_val = 1,
-                    max_inclusive = False)
+        pe_p0 = safe_input("Please enter list of nozzle exit pressure ratios (pe/p0), comma separated: ",
+                        name="Nozzle exit pressure ratio",
+                        min_val = 0,
+                        max_val = 1,
+                        max_inclusive = False)
 # pa_p0 definition
-    pa_p0 = safe_input("Please enter list of ambient pressure ratios (pa/p0), comma separated: ",
-                    name="Ambient pressure ratio",
-                    min_val = 0,
-                    max_val = 1,
-                    max_inclusive= False)
+        pa_p0 = safe_input("Please enter list of ambient pressure ratios (pa/p0), comma separated: ",
+                        name="Ambient pressure ratio",
+                        min_val = 0,
+                        max_val = 1,
+                        max_inclusive= False)
 
 # Check if arrays are same size and ask user if they want to treat as paired inputs
-    if gamma.size == A_ratio.size == pe_p0.size == pa_p0.size:
-        array_choice = input("Your arrays are the same size! Would like to treat them as paired inputs rather than calculate all variations? (y/n): ").strip().lower()
-    else:
-        array_choice = "n"
+        if gamma.size == A_ratio.size == pe_p0.size == pa_p0.size:
+            array_choice = input("Your arrays are the same size! Would like to treat them as paired inputs rather than calculate all variations? (y/n): ").strip().lower()
+        else:
+            array_choice = "n"
 
-    thrust_coefficient(gamma, A_ratio, pe_p0, pa_p0, array_choice)
+        thrust_coefficient(gamma, A_ratio, pe_p0, pa_p0, array_choice)
