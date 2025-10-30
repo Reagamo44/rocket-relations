@@ -250,3 +250,6 @@ def main():
             array_choice = "n"
 
         thrust_coefficient(gamma, A_ratio, pe_p0, pa_p0, array_choice)
+
+
+main()
